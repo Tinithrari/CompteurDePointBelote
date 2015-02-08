@@ -10,6 +10,8 @@ import groupe_ipi_belote.compteurBelote.Components_core.Color;
 import groupe_ipi_belote.compteurBelote.Components_core.Joueur;
 import groupe_ipi_belote.compteurBelote.Components_core.Cards;
 import groupe_ipi_belote.compteurBelote.Components_core.Value;
+import groupe_ipi_belote.compteurBelote.Exceptions_core.CardException;
+import groupe_ipi_belote.compteurBelote.Exceptions_core.DonneException;
 import groupe_ipi_belote.compteurBelote.Score_core.*;
 
 
@@ -28,12 +30,21 @@ public class Donne {
      * @param clr Couleur désignée
      */
     public Donne(Equipe ctt, Color clr){
-        if(ctt == null || clr == null) {
-            // throw new DonneCstrException();
-        } else {
-            contractant = ctt;
-            couleur     = clr;
+        try{
+            if(ctt == null || clr == null) {
+                throw new DonneException( ctt == null ? 0xAC00 : 0xAC01);
+            } else {
+                contractant = ctt;
+                couleur     = clr;
+            }
+        } catch(DonneException de){
+
+        } catch(CardException ce){
+
+        } catch(Exception e){
+
         }
+
     }
 
     /**
@@ -59,24 +70,28 @@ public class Donne {
 
         return temp;
     }
+
     /**
      *
+     * @param found         Si la valeur a déjà été trouvé ou non
+     * @param typeOfCard    Couleur de la carte impliquée
+     * @param valueOfCard   Valeur de la carte impliquée
+     * @param direction     Le type de recherche qui va être utilisé (0/1)
      */
-
     private void common_check(boolean found, Color typeOfCard, Value valueOfCard, final int direction) {
         if (!found) {
 
             ArrayList<Cards> followingCards = new ArrayList<>();
 
-            int aofc = 0;
+            int aofc = 0; // aofc : Amount Of Following Cards
 
             switch (direction) {
                 case 0:
-                    valueOfCard = null;
+                    valueOfCard = null; // On recherche selon la valeur (suite / carre etc.)
                     break;
 
                 case 1:
-                    typeOfCard = null;
+                    typeOfCard = null; // On recherche selon la couleur (Tierce / Cinquante etc.)
                     break;
             }
 
@@ -84,6 +99,7 @@ public class Donne {
             for (Joueur j : contractant.getPlayers()) {
                 found = false;
 
+                // On recupere les cartes de chaque mains
                 Main m = j.getMain();
                 ArrayList<Cards> alc = m.getCards();
 
@@ -129,8 +145,8 @@ public class Donne {
 
             }
 
-
-            if (found && typeOfCard != null) {
+            // Si la derniere valeur de found est "true", on a trouve un ou plusieurs elements.
+            if (found) {
                 if (direction == 0 && valueOfCard != null) {
 
                     switch (valueOfCard) {
@@ -142,36 +158,50 @@ public class Donne {
                             annonces.add(new CarreN(contractant));
                             break;
 
-                        case AS: case DIX: case DAME: case ROI:
+                        case AS:
+                        case DIX:
+                        case DAME:
+                        case ROI:
                             annonces.add(new CarreADR(contractant));
                             break;
 
+                        // Annonce nulle : Sept, Huit etc.
                         default:
-                            annonces.add(new Carre(contractant) { @Override public int annonce() { return 0; } });
+                            annonces.add(new Carre(contractant) {
+                                @Override
+                                public int annonce() {
+                                    return 0;
+                                }
+                            });
                     }
-
-                    if (direction == 1 && typeOfCard != null) {
-                        switch (aofc) {
-                            case 3:
-                                annonces.add(new Tierce(contractant, followingCards.toArray(new Cards[followingCards.size()])));
-                                break;
-
-                            case 4:
-                                annonces.add(new Cinquante(contractant, followingCards.toArray(new Cards[followingCards.size()])));
-                                break;
-
-                            case 5:
-                                annonces.add(new Cent(contractant, followingCards.toArray(new Cards[followingCards.size()])));
-                                break;
-                        }
-                    }
-
                 }
 
+                if (direction == 1 && typeOfCard != null) {
+
+                    switch (aofc) {
+
+                        case 3:
+                            annonces.add(new Tierce(contractant, followingCards.toArray(new Cards[followingCards.size()])));
+                            break;
+
+                        case 4:
+                            annonces.add(new Cinquante(contractant, followingCards.toArray(new Cards[followingCards.size()])));
+                            break;
+
+                        case 5:
+                            annonces.add(new Cent(contractant, followingCards.toArray(new Cards[followingCards.size()])));
+                            break;
+                    }
+                }
             }
         }
     }
 
+    /**
+     * Deprecated Method
+     * @param found         Si la valeur a déjà été trouvé ou non
+     * @param typeOfCard    Couleur de la carte impliquée
+     */
     private void check_colors(boolean found, Color typeOfCard){
         if(!found) {
             // Amount of Following Cards
@@ -229,6 +259,11 @@ public class Donne {
         }
     }
 
+    /**
+     * Deprecated Method
+     * @param found         Si la valeur a déjà été trouvé ou non
+     * @param typeOfCard    Face de la carte impliquée
+     */
     private void check_values(boolean found, Value typeOfCard){
         if(!found) {
             Label_players:
@@ -307,7 +342,7 @@ public class Donne {
     }
 
     /**
-     *
+     *  On ajoute une annonce vide
      */
     public void ajouterAnnonce(){
         annonces.add(new StratAnnonce(contractant) {

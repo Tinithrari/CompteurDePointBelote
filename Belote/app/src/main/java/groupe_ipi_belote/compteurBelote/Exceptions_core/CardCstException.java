@@ -12,4 +12,7 @@ public class CardCstException extends CardException{
         super("Il est impossible de donner une valeur nulle aux cartes !");
     }
 
+    public String getMessage(){
+        return message;
+    }
 }

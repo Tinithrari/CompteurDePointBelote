@@ -11,4 +11,8 @@ public class MainException extends CardException{
     public MainException () throws Exception{
         super(" ");
     }
+
+    public String getMessage(){
+        return message;
+    }
 }

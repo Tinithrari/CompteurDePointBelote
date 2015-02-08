@@ -1,6 +1,7 @@
 package groupe_ipi_belote.compteurBelote.Game_core;
 import groupe_ipi_belote.compteurBelote.Components_core.Equipe;
 import groupe_ipi_belote.compteurBelote.Components_core.Cards;
+import groupe_ipi_belote.compteurBelote.Exceptions_core.PliCstException;
 
 
 /**
@@ -16,11 +17,17 @@ public class Pli {
      * @param card La carte dans le pli
      */
     public Pli(Equipe win, Cards card){
-        if(win == null || card == null) {
-            // throw new PliCstException();
-        } else {
-            gagnant = win;
-            wCard = card;
+        try {
+            if (win == null || card == null) {
+                throw new PliCstException(win == null ? 0xAB00 : 0xAB01);
+            } else {
+                gagnant = win;
+                wCard = card;
+            }
+        } catch(PliCstException pce){
+
+        } catch (Exception e){
+
         }
     }
 

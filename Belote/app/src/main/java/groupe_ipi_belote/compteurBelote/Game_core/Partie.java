@@ -1,5 +1,6 @@
 package groupe_ipi_belote.compteurBelote.Game_core;
 import groupe_ipi_belote.compteurBelote.Components_core.Equipe;
+import groupe_ipi_belote.compteurBelote.Exceptions_core.DonneException;
 import groupe_ipi_belote.compteurBelote.Exceptions_core.GameTeamException;
 
 /**
@@ -54,15 +55,21 @@ public class Partie {
      *
      * @param equipe Ajout de points à l'équipe désignée
      */
-    public void ajouterPoint(Equipe equipe){
-        if(donnes.isEmpty()){
-            return;
-            // throw new VoidException();
-        }
+    public void ajouterPoint(Equipe equipe) {
+        try{
+            if (donnes.isEmpty()) {
+                throw new DonneException(0xACFF);
+            }
 
-        if(equipe == null){
-            return;
-            // throw new GameTeamException(0xAA04);
+            if (equipe == null) {
+                throw new GameTeamException(0xAA04);
+            }
+        } catch(DonneException de){
+
+        } catch(GameTeamException gte){
+
+        } catch(Exception e){
+
         }
 
         int pos;
@@ -82,8 +89,10 @@ public class Partie {
         search_team_label :
         while(!teamFound && index >= 0){
              if(donnes.get(index).getEquipe().equals(equipes[pos])){
+
                 score_equipes[pos] += donnes.get(index).totalScore();
                 teamFound = true;
+
                 break search_team_label;
              }
             index--;

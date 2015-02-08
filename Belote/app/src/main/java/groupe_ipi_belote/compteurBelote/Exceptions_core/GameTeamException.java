@@ -13,6 +13,7 @@ public class GameTeamException extends Exception{
      * @throws Exception
      */
     public GameTeamException(int value) throws Exception{
+        super();
         errCode = value;
 
         switch(value){
@@ -25,7 +26,20 @@ public class GameTeamException extends Exception{
             case 0xAA02 :
                 message = "Les champs ne peuvent pas être vide !";
                 break;
+            case 0xAA03:
+                message = "Les valeurs non nulles ne peuvent pas être utilisées.";
+                break;
+            case 0xAA04:
+                break;
+            case 0xAA05:
+                break;
+            case 0xAA06:
+                message = "Le nom d'une des deux équipes est invalide.";
+                break;
         }
     }
 
+    public String getMessage(){
+        return message;
+    }
 }

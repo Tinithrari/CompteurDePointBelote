@@ -8,6 +8,8 @@ public class AnnounceException extends Exception {
     private int errCode;
 
     public AnnounceException(int code) throws Exception {
+        super();
+
         errCode = code;
         switch (code) {
             case 0xAAA0:
@@ -18,5 +20,9 @@ public class AnnounceException extends Exception {
                 message = "Il est impossible d'avoir une equipe nulle !";
                 break;
         }
+    }
+
+    public String getMessage(){
+        return message;
     }
 }

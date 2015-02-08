@@ -7,7 +7,12 @@ public class CardException extends Exception{
     private String message;
 
     public CardException(String msg) throws Exception{
+        super(msg);
         message = msg;
+    }
+
+    public String getMessage(){
+        return message;
     }
 }
 
