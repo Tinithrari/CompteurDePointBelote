@@ -20,4 +20,8 @@ public class Joueur {
     public String getNom(){ return this.name; }
     public Main getMain(){ return hand; }
 
+    // Les mains ne sont pas utilisees dans le equals
+    public boolean equals(Joueur j){
+        return j.name.equals(name);
+    }
 }

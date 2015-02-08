@@ -343,4 +343,12 @@ public class Donne {
 
         return tmp;
     }
+
+    public Equipe getEquipe(){
+        return contractant;
+    }
+
+    public String getNomEquipe(){
+        return contractant.getNomEquipe();
+    }
 }

@@ -6,14 +6,14 @@ import groupe_ipi_belote.compteurBelote.Exceptions_core.GameTeamException;
  * Created by Axel on 27/01/2015.
  */
 
-import java.util.PriorityQueue;
+import java.util.ArrayList;
 
 public class Partie {
     private String name;
     private int[]  score_equipes;
 
     private Equipe[] equipes;
-    private final PriorityQueue<Donne> donnes = new PriorityQueue<Donne>(); // On s'assure que la donne ne peut pas être modifiée en cours
+    private final ArrayList<Donne> donnes = new ArrayList<Donne>(); // On s'assure que la donne ne peut pas être modifiée en cours
 
     /**
      *
@@ -43,10 +43,11 @@ public class Partie {
     }
 
     /**
-     * Ajouter une donne à la partie
+     * Ajouter une donne à la partie via le GUI
+     *
      */
-    public void ajouterDonne(){
-        donnes.add(null); // Temp
+    public void ajouterDonne(Donne d){
+        if(d != null) donnes.add(d);
     }
 
     /**
@@ -54,8 +55,45 @@ public class Partie {
      * @param equipe Ajout de points à l'équipe désignée
      */
     public void ajouterPoint(Equipe equipe){
+        if(donnes.isEmpty()){
+            return;
+            // throw new VoidException();
+        }
+
+        if(equipe == null){
+            return;
+            // throw new GameTeamException(0xAA04);
+        }
+
+        int pos;
+
+        if(equipe.equals(equipes[0])) {
+            pos = 0;
+        } else if(equipe.equals(equipes[1])) {
+            pos = 1;
+        } else {
+            return;
+            // throw new GameTeamException(0xAA05);
+        }
+
+        boolean teamFound = false;
+        int index = donnes.size()-1;
+
+        search_team_label :
+        while(!teamFound && index >= 0){
+             if(donnes.get(index).getEquipe().equals(equipes[pos])){
+                score_equipes[pos] += donnes.get(index).totalScore();
+                teamFound = true;
+                break search_team_label;
+             }
+            index--;
+        }
+
+
 
     }
+
+
     // Getters and setters
     public String getNom() { return name; }
     public Equipe getEquipe(int index){ return (index >= 0 && index < equipes.length) ? equipes[index] : null;}

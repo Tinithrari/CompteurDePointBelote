@@ -13,7 +13,7 @@ public enum Color {
 
     /**
      *
-     * @param i
+     * @param i 'Rang' de la couleur
      */
     Color(int i){
         rank = i;
