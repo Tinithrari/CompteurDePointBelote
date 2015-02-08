@@ -56,6 +56,8 @@ public class Partie {
      * @param equipe Ajout de points à l'équipe désignée
      */
     public void ajouterPoint(Equipe equipe) {
+        int pos = -1;
+
         try{
             if (donnes.isEmpty()) {
                 throw new DonneException(0xACFF);
@@ -64,6 +66,16 @@ public class Partie {
             if (equipe == null) {
                 throw new GameTeamException(0xAA04);
             }
+
+
+            if(equipe.equals(equipes[0])) {
+                pos = 0;
+            } else if(equipe.equals(equipes[1])) {
+                pos = 1;
+            } else {
+                throw new GameTeamException(0xAA05);
+            }
+
         } catch(DonneException de){
 
         } catch(GameTeamException gte){
@@ -72,17 +84,8 @@ public class Partie {
 
         }
 
-        int pos;
-
-        if(equipe.equals(equipes[0])) {
-            pos = 0;
-        } else if(equipe.equals(equipes[1])) {
-            pos = 1;
-        } else {
-            return;
-            // throw new GameTeamException(0xAA05);
-        }
-
+        if(pos == -1) return; // Pour eviter que l'interpreteur ne s'emballe a rien.
+        
         boolean teamFound = false;
         int index = donnes.size()-1;
 
