@@ -48,6 +48,23 @@ public class Logs {
 
     }
 
+    public void writeIntoFile(Exception e){
+        try{
+            currentTime = new SimpleDateFormat("HHmmss").format(Calendar.getInstance().getTime());
+
+            fw.append("[" + currentTime + "]@Me" + e.getMessage() + ":FROM:" + e.getCause() + " [TRACE] ");
+
+            for (StackTraceElement s : e.getStackTrace()){
+                fw.append("@Cl" + s.getClassName() + "@Fl" + s.getFileName() + "@Mt" + s.getMethodName() + "@Ln" + s.getLineNumber() + "@@");
+            }
+
+            fw.flush();
+
+        } catch(Exception ex){
+            closeWriter();
+        }
+
+    }
 
     private void detectFile(){
         File fileExistence = new File(__PATH);
