@@ -3,9 +3,7 @@ package groupe_ipi_belote.compteurBelote.Exceptions_core;
 /**
  * Created by Axel on 01/02/2015.
  */
-public class GameTeamException extends Exception{
-    private String message;
-    private int errCode;
+public class GameTeamException extends CustomExceptionTemplate{
 
     /**
      *
@@ -13,8 +11,7 @@ public class GameTeamException extends Exception{
      * @throws Exception
      */
     public GameTeamException(int value) throws Exception{
-        super();
-        errCode = value;
+        super(value);
 
         switch(value){
             case 0xAA00 :
@@ -30,6 +27,7 @@ public class GameTeamException extends Exception{
                 message = "Les valeurs non nulles ne peuvent pas être utilisées.";
                 break;
             case 0xAA04:
+                message = "Le joueur impliqué ne peut pas être nul.";
                 break;
             case 0xAA05:
                 break;
@@ -39,7 +37,4 @@ public class GameTeamException extends Exception{
         }
     }
 
-    public String getMessage(){
-        return message;
-    }
 }

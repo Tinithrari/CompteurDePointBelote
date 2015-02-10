@@ -6,13 +6,9 @@ package groupe_ipi_belote.compteurBelote.Exceptions_core;
 
 // A completer
 public class MainException extends CardException{
-    private String message;
 
     public MainException () throws Exception{
-        super(" ");
+        super(0xAE00);
     }
 
-    public String getMessage(){
-        return message;
-    }
 }

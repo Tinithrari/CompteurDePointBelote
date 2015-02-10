@@ -15,7 +15,8 @@ public class Paquet {
     public Paquet(){
         for( Color c : Color.values()){
             for ( Value v : Value.values()){
-                Deck.add(new Cards(c,v));
+                if(c != Color.UNDEFINED && v != Value.UNDEFINED)
+                    Deck.add(new Cards(c,v));
             }
         }
 

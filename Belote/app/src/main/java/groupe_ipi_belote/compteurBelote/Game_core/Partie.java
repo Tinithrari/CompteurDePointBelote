@@ -11,9 +11,9 @@ import java.util.ArrayList;
 
 public class Partie {
     private String name;
-    private int[]  score_equipes;
+    private final int[] score_equipes = new int[2];
 
-    private Equipe[] equipes;
+    private final Equipe[] equipes = new Equipe[2];
     private final ArrayList<Donne> donnes = new ArrayList<Donne>(); // On s'assure que la donne ne peut pas être modifiée en cours
 
     /**
@@ -32,14 +32,16 @@ public class Partie {
                 throw new GameTeamException(0x0AA01);
             } else {
                 this.name = nom;
-                this.equipes = new Equipe[2];
                 this.equipes[0] = e1;
                 this.equipes[1] = e2;
             }
+
         } catch(GameTeamException gte){
             // Communication en amont
         } catch(Exception e){
 
+        } finally{
+            this.score_equipes[0] = this.score_equipes[1] = 0;
         }
     }
 

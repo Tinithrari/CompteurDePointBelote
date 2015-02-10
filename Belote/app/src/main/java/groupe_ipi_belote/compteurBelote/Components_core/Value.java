@@ -10,7 +10,8 @@ public enum Value {
     VALET(2,4),
     DAME(3,5),
     ROI(4,6),
-    AS(11,7);
+    AS(11,7),
+    UNDEFINED(-1,-1);
 
     private int value;
     private int rank;

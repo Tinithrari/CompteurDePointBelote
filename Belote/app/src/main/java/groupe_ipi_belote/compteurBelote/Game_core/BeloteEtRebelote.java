@@ -17,7 +17,7 @@ public class BeloteEtRebelote {
 
     public BeloteEtRebelote(Equipe eqp, Color clr) {
         try {
-            if (clr == null || eqp == null) {
+            if (clr == null || clr == Color.UNDEFINED || eqp == null) {
                 throw new BERException(clr == null ? 0xCC00 : 0xCC01);
             } else {
                 atout = clr;

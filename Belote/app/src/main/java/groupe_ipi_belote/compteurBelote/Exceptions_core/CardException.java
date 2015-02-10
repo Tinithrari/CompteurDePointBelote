@@ -3,16 +3,13 @@ package groupe_ipi_belote.compteurBelote.Exceptions_core;
 /**
  * Created by Axel on 02/02/2015.
  */
-public class CardException extends Exception{
-    private String message;
+public class CardException extends CustomExceptionTemplate{
 
-    public CardException(String msg) throws Exception{
-        super(msg);
-        message = msg;
+    public CardException(int code) throws Exception{
+        // super(0xAD00);
+        super(code);
+        message = "Une des valeur spécifiée est invalide.";
     }
 
-    public String getMessage(){
-        return message;
-    }
 }
 

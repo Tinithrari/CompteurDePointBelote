@@ -3,11 +3,10 @@ package groupe_ipi_belote.compteurBelote.Exceptions_core;
 /**
  * Created by Axel on 08/02/2015.
  */
-public class BERException extends Exception {
-    String message;
+public class BERException extends CustomExceptionTemplate{
 
     public BERException(int code) throws Exception{
-        super();
+        super(code);
 
         switch(code){
             case 0xCC00:
@@ -20,7 +19,4 @@ public class BERException extends Exception {
 
     }
 
-    public String getMessage(){
-        return message;
-    }
 }

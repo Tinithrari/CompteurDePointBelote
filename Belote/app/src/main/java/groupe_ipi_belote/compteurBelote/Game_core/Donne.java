@@ -11,6 +11,7 @@ import groupe_ipi_belote.compteurBelote.Components_core.Joueur;
 import groupe_ipi_belote.compteurBelote.Components_core.Cards;
 import groupe_ipi_belote.compteurBelote.Components_core.Value;
 import groupe_ipi_belote.compteurBelote.Exceptions_core.CardException;
+import groupe_ipi_belote.compteurBelote.Exceptions_core.CustomExceptionTemplate;
 import groupe_ipi_belote.compteurBelote.Exceptions_core.DonneException;
 import groupe_ipi_belote.compteurBelote.Score_core.*;
 
@@ -31,15 +32,13 @@ public class Donne {
      */
     public Donne(Equipe ctt, Color clr){
         try{
-            if(ctt == null || clr == null) {
+            if(ctt == null || clr == Color.UNDEFINED || clr == null) {
                 throw new DonneException( ctt == null ? 0xAC00 : 0xAC01);
             } else {
                 contractant = ctt;
                 couleur     = clr;
             }
-        } catch(DonneException de){
-
-        } catch(CardException ce){
+        } catch(CustomExceptionTemplate cet){
 
         } catch(Exception e){
 
@@ -52,6 +51,12 @@ public class Donne {
      * @return
      */
     public int[] calculerScore(){
+        if(annonces != null || annonces.size() == 0){
+            int[] tmp = new int[1];
+            tmp[0] = 0;
+            return tmp;
+        }
+
         int[] tmp = new int[annonces.size()];
 
         for (int i = 0; i < tmp.length; ++i){
@@ -320,8 +325,6 @@ public class Donne {
 
             boolean found = false;
 
-
-
             /*
                  Deux choix possibles :
                  Vérification automatique, c'est-à-dire que le programme va vérifier les types d'annonces.
@@ -336,7 +339,7 @@ public class Donne {
             Color colorOfCard = null;
 
             common_check(found,colorOfCard, typeOfCard, 0);
-            common_check(found,colorOfCard, typeOfCard, 0);
+            common_check(found,colorOfCard, typeOfCard, 1);
 
         }
     }
@@ -361,12 +364,12 @@ public class Donne {
         return couleur;
     }
 
-    /**S
+    /**
      *
      * @return
      */
     public Main[] getMains(){
-        Main[] tmp = new Main[2];
+        Main[] tmp = new Main[contractant.getPlayers().length];
 
         for(Joueur j : contractant.getPlayers()){
 

@@ -7,8 +7,8 @@ import groupe_ipi_belote.compteurBelote.Exceptions_core.CardCstException;
  * Created by Axel on 27/01/2015.
  */
 public class Cards {
-    private Color color;
-    private Value value;
+    final private Color color;
+    final private Value value;
 
     /**
      *
@@ -16,10 +16,12 @@ public class Cards {
      * @param v Valeur / Face de la carte
      */
     public Cards(Color c, Value v) {
+        if(c == null) color = Color.UNDEFINED; else color = c;
+        if(v == null) value = Value.UNDEFINED; else value = v;
+
         try {
-            if (c != null || v != null) {
-                color = c;
-                value = v;
+            if ((c != null && v != null) || (c != Color.UNDEFINED && v != Value.UNDEFINED)) {
+                // Rien a faire
             } else {
                 throw new CardCstException();
             }

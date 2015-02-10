@@ -7,7 +7,8 @@ public enum Color {
     COEUR(0),
     CARREAU(1),
     TREFLE(2),
-    PIQUE(3);
+    PIQUE(3),
+    UNDEFINED(-1);
 
     int rank;
 

@@ -1,5 +1,7 @@
 package groupe_ipi_belote.compteurBelote.Components_core;
 
+import groupe_ipi_belote.compteurBelote.Exceptions_core.CustomExceptionTemplate;
+import groupe_ipi_belote.compteurBelote.Exceptions_core.GameTeamException;
 import groupe_ipi_belote.compteurBelote.Game_core.Main;
 
 /**
@@ -7,13 +9,24 @@ import groupe_ipi_belote.compteurBelote.Game_core.Main;
  */
 public class Joueur {
     private String name;
-    private Main hand;
+    final private Main hand;
 
     /**
      * @param nom : Le nom du joueur
      */
     public Joueur(String nom){
-        this.name = nom;
+        try {
+            if (nom == null || nom.equals("")) {
+                throw new GameTeamException(0xAA04);
+            } else {
+                this.name = nom;
+            }
+        } catch(CustomExceptionTemplate cet){
+
+        } catch (Exception e){
+
+        }
+
         hand = new Main(this);
     }
 

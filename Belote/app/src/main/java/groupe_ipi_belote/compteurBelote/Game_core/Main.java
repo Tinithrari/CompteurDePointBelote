@@ -10,6 +10,8 @@ import groupe_ipi_belote.compteurBelote.Components_core.Color;
 import groupe_ipi_belote.compteurBelote.Components_core.Joueur;
 import groupe_ipi_belote.compteurBelote.Components_core.Cards;
 import groupe_ipi_belote.compteurBelote.Components_core.Value;
+import groupe_ipi_belote.compteurBelote.Exceptions_core.CustomExceptionTemplate;
+import groupe_ipi_belote.compteurBelote.Exceptions_core.GameTeamException;
 
 /**
  * Created by Axel on 30/01/2015.
@@ -24,8 +26,17 @@ public class Main {
      * @param o Propriétaire de la main.
      */
     public Main(Joueur o){
-        if( o == null ) {} // throw new PlayerCstException();
-        else { owner = o; }
+        try {
+            if (o == null) {
+                throw new GameTeamException(0xAA04);
+            } else {
+                owner = o;
+            }
+        } catch(CustomExceptionTemplate cet){
+
+        } catch(Exception e){
+
+        }
     }
 
     /**
