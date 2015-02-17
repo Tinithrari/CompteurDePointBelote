@@ -1,12 +1,10 @@
 package groupe_ipi_belote.compteurBelote.Components_core;
 
-import java.util.Random;
-
 import groupe_ipi_belote.compteurBelote.Exceptions_core.CardCstException;
 /**
  * Created by Axel on 27/01/2015.
  */
-public class Cards {
+public class Cards implements Comparable {
     final private Color color;
     final private Value value;
 
@@ -32,11 +30,24 @@ public class Cards {
         }
     }
 
+    /**
+     *
+     * @param carte Constructeur de copie.
+     */
     public Cards(Cards carte) {
         this(carte.getFace(), carte.getValue());
     }
 
+    /**
+     *
+     * @return La valeur de la carte courante
+     */
     public Value getValue(){ return value; }
+
+    /**
+     *
+     * @return La couleur de la carte courante
+     */
     public Color getFace (){ return color; }
 
     @Override
@@ -44,4 +55,17 @@ public class Cards {
         return color.toString() + "_" + value.toString();
     }
 
+    private int compareTo(Cards cd) {
+        return (this.getValue().getRang() < cd.getValue().getRang()) ? -10 : (this.getValue().getRang() == cd.getValue().getRang()) ? 0 : 10;
+    }
+
+    @Override
+    public boolean equals(Object object) {
+        return false;
+    }
+
+    @Override
+    public int compareTo(Object another) {
+        return compareTo(another);
+    }
 }

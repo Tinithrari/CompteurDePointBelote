@@ -1,4 +1,35 @@
-
-============= Exceptions
+==========================  Exceptions triees par ordre croissant ==========================
 ============== CustomEceptionsTemplate
-===============
+GameTeamException   : [ 0xAA00, 0xAAA0 ]
+    • 0xAA00 : Equipe invalide
+    • 0xAA01 : Equipe identiques
+    • 0xAA02 : Champs invalides
+    • 0xAA03 : Valeurs nulles
+    • 0xAA04 : Joueurs invalides
+    • 0xAA05 : Not defined yet
+    • 0xAA06 : Noms d'equipe invalides
+----------------------------------------------------------------------------------
+AnnounceExceptions  : [ 0xAAA0, 0xAAAF ]
+    • 0xAAA0 : Nombre de cartes invalides
+    • 0XAAA1 : Equipe invalide
+----------------------------------------------------------------------------------
+PliCstException     : [ 0xAB00, 0xABFF ]
+    • 0xAB00 : Equipe gagnante invalide
+    • 0xAB01 : Carte utilisée invalide
+----------------------------------------------------------------------------------
+DonneException      : [ 0xAC00, 0xACFF ]
+    • 0xAC00 : Equipe invalide
+    • 0xAC01 : Couleur invalide
+    • 0xACFF : Donne invalide
+----------------------------------------------------------------------------------
+CardException       :
+CardCstExceptions   : [ 0xAD00, 0xADFF ]
+    • 0xAD01 : Valeur des cartes invalide
+----------------------------------------------------------------------------------
+MainException       : [ 0xAE00, 0xAEFF ]
+    • 0xAE00 : ?
+----------------------------------------------------------------------------------
+BERException        : [ 0xCC00, 0xCCFF ]
+    • 0xCC00 : Equipe invalide
+    • 0xCC01 : Couleur invalide
+----------------------------------------------------------------------------------

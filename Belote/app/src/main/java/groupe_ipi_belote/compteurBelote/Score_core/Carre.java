@@ -7,5 +7,6 @@ import groupe_ipi_belote.compteurBelote.Components_core.Equipe;
  */
 public abstract class Carre extends StratAnnonce{
     public abstract int annonce();
+
     public Carre(Equipe beneficiaire){ super(beneficiaire); }
 }

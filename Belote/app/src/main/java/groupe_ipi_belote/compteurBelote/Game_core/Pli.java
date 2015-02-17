@@ -1,7 +1,8 @@
 package groupe_ipi_belote.compteurBelote.Game_core;
+
+import groupe_ipi_belote.compteurBelote.Components_core.Cards;
 import groupe_ipi_belote.compteurBelote.Components_core.Color;
 import groupe_ipi_belote.compteurBelote.Components_core.Equipe;
-import groupe_ipi_belote.compteurBelote.Components_core.Cards;
 import groupe_ipi_belote.compteurBelote.Components_core.Value;
 import groupe_ipi_belote.compteurBelote.Exceptions_core.PliCstException;
 
@@ -33,6 +34,15 @@ public class Pli {
         }
     }
 
+    /**
+     *
+     * @return La carte concernée.
+     */
     public Cards getCartes(){ return wCard; }
+
+    /**
+     *
+     * @return L'équipe gagant ce pli.
+     */
     public Equipe getGagnant(){ return gagnant; }
 }
