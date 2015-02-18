@@ -1,14 +1,13 @@
 package groupe_ipi_belote.compteurBelote.Game_core;
 
 
-import java.util.ArrayDeque;
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.List;
+import java.util.Comparator;
 
+import groupe_ipi_belote.compteurBelote.Components_core.Cards;
 import groupe_ipi_belote.compteurBelote.Components_core.Color;
 import groupe_ipi_belote.compteurBelote.Components_core.Joueur;
-import groupe_ipi_belote.compteurBelote.Components_core.Cards;
 import groupe_ipi_belote.compteurBelote.Components_core.Value;
 import groupe_ipi_belote.compteurBelote.Exceptions_core.CustomExceptionTemplate;
 import groupe_ipi_belote.compteurBelote.Exceptions_core.GameTeamException;
@@ -41,33 +40,53 @@ public class Main {
 
     /**
      *
+     * @param carte Ajoute la carte concernée à la main du joueur
      */
     public void ajouterCarte(Cards carte){
         if(card.size() != 4) {
             card.add(new Cards(carte));
         }
+
+        // Tri 'adaptatif'
+        Collections.sort(card, new Comparator<Cards>() {
+            public int compare(Cards c1, Cards c2) {
+                return c1.compareTo(c2);
+            }
+        });
     }
 
+    /**
+     * @deprecated
+     * @param c La couleur de la carte
+     * @param v La valeur de la carte
+     */
     public void ajouterCarte(Color c, Value v){
         if(c != null || v != null)
             ajouterCarte(new Cards(c,v));
     }
     /**
      *
-     * @return
+     * @return La main du joueur
      */
     public ArrayList<Cards> getCards(){  return card; }
 
     /**
      *
-     * @param index
-     * @return
+     * @param index L'indice de la carte voulue
+     * @return      La carte sélectionnée
      */
     public Cards getOneCard(int index) { return card.get(index%card.size()); }
 
     /**
      *
-     * @return
+     * @param cd La carte voulue
+     * @return   La carte sélectionnée, si elle existe
+     */
+    public Cards getOneCard(Cards cd)  { return card.contains(cd) ? cd : null;}
+
+    /**
+     *
+     * @return Le joueur qui détient cette main
      */
     public Joueur getOwner() { return owner; }
 }

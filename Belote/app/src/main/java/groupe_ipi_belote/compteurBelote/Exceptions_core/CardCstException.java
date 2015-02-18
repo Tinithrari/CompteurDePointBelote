@@ -1,7 +1,5 @@
 package groupe_ipi_belote.compteurBelote.Exceptions_core;
 
-import android.text.style.TtsSpan;
-
 /**
  * Created by Axel on 01/02/2015.
  */

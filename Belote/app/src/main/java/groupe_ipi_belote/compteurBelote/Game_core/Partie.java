@@ -1,4 +1,7 @@
 package groupe_ipi_belote.compteurBelote.Game_core;
+
+import java.util.ArrayList;
+
 import groupe_ipi_belote.compteurBelote.Components_core.Equipe;
 import groupe_ipi_belote.compteurBelote.Exceptions_core.DonneException;
 import groupe_ipi_belote.compteurBelote.Exceptions_core.GameTeamException;
@@ -7,11 +10,9 @@ import groupe_ipi_belote.compteurBelote.Exceptions_core.GameTeamException;
  * Created by Axel on 27/01/2015.
  */
 
-import java.util.ArrayList;
-
 public class Partie {
     private String name;
-    private final int[] score_equipes = new int[2];
+    private final int[] score_equipes = new int[2];             // On ne peut pas modifier le tableau déjà présent.
 
     private final Equipe[] equipes = new Equipe[2];
     private final ArrayList<Donne> donnes = new ArrayList<Donne>(); // On s'assure que la donne ne peut pas être modifiée en cours
@@ -109,11 +110,32 @@ public class Partie {
 
 
     // Getters and setters
+
+    /**
+     *
+     * @return Le nom de la partie.
+     */
     public String getNom() { return name; }
+
+    /**
+     *
+     * @param index Indice de l'équipe concernée (0 / 1).
+     * @return      L'équipe sélectionnée.
+     */
     public Equipe getEquipe(int index){ return (index >= 0 && index < equipes.length) ? equipes[index] : null;}
     public Equipe[] getEquipes(){ return equipes; }
 
+    /**
+     *
+     * @return Les deux scores des deux équipes.
+     */
     public int[] getScores(){ return score_equipes; }
+
+    /**
+     *
+     * @param index Indice de l'équipe concernée (0 / 1).
+     * @return      Le score de l'équipe sélectionnée.
+     */
     public int getScore(int index) { return index >= 0 && index < score_equipes.length ? score_equipes[index] : -1; }
 
 

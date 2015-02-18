@@ -5,20 +5,25 @@ package groupe_ipi_belote.compteurBelote.Game_core;
  */
 
 
-import groupe_ipi_belote.compteurBelote.Components_core.Equipe;
-import groupe_ipi_belote.compteurBelote.Components_core.Color;
-import groupe_ipi_belote.compteurBelote.Components_core.Joueur;
+import java.util.ArrayList;
+
 import groupe_ipi_belote.compteurBelote.Components_core.Cards;
+import groupe_ipi_belote.compteurBelote.Components_core.Color;
+import groupe_ipi_belote.compteurBelote.Components_core.Equipe;
+import groupe_ipi_belote.compteurBelote.Components_core.Joueur;
 import groupe_ipi_belote.compteurBelote.Components_core.Value;
-import groupe_ipi_belote.compteurBelote.Exceptions_core.CardException;
 import groupe_ipi_belote.compteurBelote.Exceptions_core.CustomExceptionTemplate;
 import groupe_ipi_belote.compteurBelote.Exceptions_core.DonneException;
-import groupe_ipi_belote.compteurBelote.Score_core.*;
-
-
-
-import java.util.PriorityQueue;
-import java.util.ArrayList;
+import groupe_ipi_belote.compteurBelote.Score_core.BeloteEtRebelote;
+import groupe_ipi_belote.compteurBelote.Score_core.Carre;
+import groupe_ipi_belote.compteurBelote.Score_core.CarreADR;
+import groupe_ipi_belote.compteurBelote.Score_core.CarreN;
+import groupe_ipi_belote.compteurBelote.Score_core.CarreV;
+import groupe_ipi_belote.compteurBelote.Score_core.Cent;
+import groupe_ipi_belote.compteurBelote.Score_core.Cinquante;
+import groupe_ipi_belote.compteurBelote.Score_core.StratAnnonce;
+import groupe_ipi_belote.compteurBelote.Score_core.StratSequence;
+import groupe_ipi_belote.compteurBelote.Score_core.Tierce;
 
 public class Donne {
     private Equipe contractant;
@@ -48,7 +53,7 @@ public class Donne {
 
     /**
      *
-     * @return
+     * @return Le score des deux équipes
      */
     public int[] calculerScore(){
         if(annonces != null || annonces.size() == 0){
@@ -66,6 +71,10 @@ public class Donne {
         return tmp;
     }
 
+    /**
+     *
+     * @return Le score total généré par les deux équipes
+     */
     public int totalScore(){
         int temp = 0;
 
@@ -197,13 +206,34 @@ public class Donne {
                             annonces.add(new Cent(contractant, followingCards.toArray(new Cards[followingCards.size()])));
                             break;
                     }
+
+                    checkBeloteEtRebelote(found);
                 }
             }
         }
     }
 
     /**
-     * Deprecated Method
+     *
+     * @param found Si une annonce est déjà faite.
+     */
+    private void checkBeloteEtRebelote(boolean found) {
+        if (found && annonces.get(annonces.size()-1) instanceof StratSequence ) {
+            ArrayList<Cards> followingCards = new ArrayList<>();
+            Value typeOfCard;
+
+            for (Joueur j : contractant.getPlayers()) {
+                Main m = j.getMain();
+                ArrayList<Cards> alc = m.getCards();
+                if(alc.contains(new Cards(couleur, Value.DAME)) && alc.contains(new Cards(couleur, Value.ROI))){
+                    annonces.add(new BeloteEtRebelote(contractant, couleur));
+                }
+            }
+        }
+    }
+
+    /**
+     * @deprecated
      * @param found         Si la valeur a déjà été trouvé ou non
      * @param typeOfCard    Couleur de la carte impliquée
      */
@@ -265,7 +295,7 @@ public class Donne {
     }
 
     /**
-     * Deprecated Method
+     * @deprecated
      * @param found         Si la valeur a déjà été trouvé ou non
      * @param typeOfCard    Face de la carte impliquée
      */
@@ -320,6 +350,10 @@ public class Donne {
         }
     }
 
+    /**
+     * Les annonces qui vont être impliquées seront dédiées à l'équipe contractante, avec une
+     * vérification automatisée des annonces.
+     */
     public void annonce(){
         if(contractant != null){
 
@@ -345,7 +379,7 @@ public class Donne {
     }
 
     /**
-     *  On ajoute une annonce vide
+     *  On ajoute une annonce nulle.
      */
     public void ajouterAnnonce(){
         annonces.add(new StratAnnonce(contractant) {
@@ -358,7 +392,7 @@ public class Donne {
 
     /**
      *
-     * @return
+     * @return L'atout de la donne actuelle
      */
     public Color getAtout(){
         return couleur;
@@ -366,7 +400,7 @@ public class Donne {
 
     /**
      *
-     * @return
+     * @return Les mains de chaque joueurs de l'équipe
      */
     public Main[] getMains(){
         Main[] tmp = new Main[contractant.getPlayers().length];
@@ -382,10 +416,18 @@ public class Donne {
         return tmp;
     }
 
+    /**
+     *
+     * @return L'équipe concernée.
+     */
     public Equipe getEquipe(){
         return contractant;
     }
 
+    /**
+     *
+     * @return Le nom de l'équipe concernée.
+     */
     public String getNomEquipe(){
         return contractant.getNomEquipe();
     }

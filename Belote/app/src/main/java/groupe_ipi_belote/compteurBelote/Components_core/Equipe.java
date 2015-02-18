@@ -107,14 +107,25 @@ public class Equipe implements Comparable<Equipe>{
 
 
     // All Override methods and Interface implementations
+
     @Override
     // Will be implemented later
+
+    /**
+     * Unused method
+     */
     public int compareTo(Equipe e){
 	//implementation à faire
         return 0;
     }
 
     // On considere que l'inverse est strictement impossible : le joueur 1 ne peut pas etre le joueur 2
+
+    /**
+     *
+     * @param e La deuième équipe
+     * @return  Retourne si oui, ou non, l'équipe courante et l'équipe sélectionnée sont les deux mêmes équipes
+     */
     public boolean equals(Equipe e){
         return this.name.equals(e.name) && membres[0].equals(e.membres[0]) && membres[1].equals(e.membres[1]);
     }
