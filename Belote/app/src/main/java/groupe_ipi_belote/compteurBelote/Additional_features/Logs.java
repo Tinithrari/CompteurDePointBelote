@@ -16,11 +16,11 @@ import groupe_ipi_belote.compteurBelote.Exceptions_core.CustomExceptionTemplate;
 // of errors occured, yet it becomes useless to read them if there are a very large quantity of problems
 // (More than twenty / twenty-five)
 public class Logs {
-    private BufferedWriter buffer;
-    private FileWriter fw;
+    private static BufferedWriter buffer;
+    private static FileWriter fw;
 
-    private File file;
-    private String currentTime;
+    private static File file;
+    private static String currentTime;
 
     public static final String __PATH = System.getProperty("user.dir") + "/Logs/";
     public static final String CURRENT_DAY = new SimpleDateFormat("yyyyMMdd").format(Calendar.getInstance().getTime());
@@ -195,7 +195,7 @@ public class Logs {
      * @return Le numéro du nouveau log, basé sur les anciens numéros (1,2...)
      *         Si aucun log n'existe, le log '0' sera crée.
      */
-    private int detectLastFile(){
+    static private int detectLastFile(){
         File fileExistence = new File(__PATH);
 
         if(!fileExistence.exists() || !fileExistence.isDirectory() ){
@@ -234,8 +234,8 @@ public class Logs {
      * Crée le dernier fichier de log, l'ouvre et reste ouvert tant que le
      * programme n'est pas arrêté, ou tant que le partie n'est pas finie.
      */
-    private void detectFile(){
-        int index = detectLastFile();
+    public static void detectFile(){
+        int index = Logs.detectLastFile();
         file = new File(__PATH + "/log" + (index) + ".txt");
 
         try {
@@ -253,14 +253,14 @@ public class Logs {
     /**
      * S'assure que le fichier est bel et bien modifiable
      */
-    public void openFile(){
+    static private void openFile(){
         file.setWritable(true);
     }
 
     /**
      *
      */
-    public void closeWriter(){
+    static public void closeWriter(){
         try{
             buffer.close();
             closeFile();
@@ -273,7 +273,7 @@ public class Logs {
      * On s'assure que le fichier est en lecture seule, pour éviter toute
      * modification des logs ainsi que des erreurs.
      */
-    public void closeFile(){
+    static private void closeFile(){
         file.setReadOnly();
     }
 }

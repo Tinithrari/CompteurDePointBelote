@@ -33,3 +33,10 @@ BERException        : [ 0xCC00, 0xCCFF ]
     • 0xCC00 : Equipe invalide
     • 0xCC01 : Couleur invalide
 ----------------------------------------------------------------------------------
+
+============== SQLExceptions
+DatabaseConnectionError : [ 0xEE00, 0xEEFF ]
+    • 0xEE00 : Connexion impossible avec la base
+    • 0xEE01 : Erreur de deconnexion
+    • 0xEE02 : Erreur de queries
+    • 0xEEFF : Erreur inconnue
