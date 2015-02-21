@@ -17,7 +17,7 @@ public class Equipe implements Comparable<Equipe>{
      * @param nom       Nom de l'équipe
      * @param players   Joueurs de l'équipe
      */
-    public Equipe( String nom, Joueur[] players){
+    public Equipe( String nom, Joueur[] players) throws GameTeamException {
         this(nom, players[0], players[1]);
     }
 
@@ -27,14 +27,14 @@ public class Equipe implements Comparable<Equipe>{
      * @param nom1 Nom du joueur 1
      * @param nom2 Nom du joueur 2
      */
-    public Equipe( String nom, String nom1, String nom2){
+    public Equipe( String nom, String nom1, String nom2) throws GameTeamException {
         this(nom, new Joueur(nom1), new Joueur(nom2));
     }
 
     /**
      * @param team On va utiliser les valeurs d'une équipe précédemment faite.
      */
-    public Equipe( Equipe team ){
+    public Equipe( Equipe team ) throws GameTeamException {
         this(team.getNomEquipe(),team.getPlayers()[0], team.getPlayers()[1]);
     }
 
@@ -44,7 +44,7 @@ public class Equipe implements Comparable<Equipe>{
      * @param J1  Joueur 1
      * @param J2  Joueur 2
      */
-    public Equipe( String nom, Joueur J1, Joueur J2){
+    public Equipe( String nom, Joueur J1, Joueur J2) throws GameTeamException {
         membres = new Joueur[2];
 
         try {
@@ -70,9 +70,9 @@ public class Equipe implements Comparable<Equipe>{
             }
 
         } catch( GameTeamException gte){
-
+            throw gte;
         } catch(Exception e){
-
+            throw new GameTeamException(0xFFFF, e);
         }
     }
 
@@ -81,12 +81,18 @@ public class Equipe implements Comparable<Equipe>{
      * @param index Ou numéro joueur, utilisé dans le référencement du tableau
      * @param name  Nouveau nom du joueur
      */
-    public void modifyPlayer(int index, String name){
-        if(index < 0 || index > membres.length){
-            return;
-        }
+    public void modifyPlayer(int index, String name) throws GameTeamException {
+        try {
+            if (index < 0 || index > membres.length) {
+                throw new GameTeamException(0xAA0F); // message = Invalid Data
+            }
+            modifyPlayer(index, new Joueur(name));
+        } catch(GameTeamException gte){
+            throw gte;
 
-        modifyPlayer(index, new Joueur(name));
+        } catch(Exception e){
+            throw new GameTeamException(0xFFFF,e);
+        }
     }
 
     /**

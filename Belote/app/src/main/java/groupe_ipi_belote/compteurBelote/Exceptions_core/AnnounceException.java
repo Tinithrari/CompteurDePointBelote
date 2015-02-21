@@ -5,8 +5,8 @@ package groupe_ipi_belote.compteurBelote.Exceptions_core;
  */
 public class AnnounceException extends CustomExceptionTemplate{
 
-    public AnnounceException(int code) throws Exception {
-        super(code);
+    public AnnounceException(int code, Exception err){
+        super(code, err);
 
         switch (code) {
             case 0xAAA0:
@@ -17,6 +17,9 @@ public class AnnounceException extends CustomExceptionTemplate{
                 message = "Il est impossible d'avoir une equipe nulle !";
                 break;
         }
+    }
+    public AnnounceException(int code) throws Exception {
+        this(code, null);
     }
 
 

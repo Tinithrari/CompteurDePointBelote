@@ -10,5 +10,7 @@ public class MainException extends CardException{
     public MainException () throws Exception{
         super(0xAE00);
     }
-
+    public MainException(Exception e)throws Exception{
+        super(0xAE00, e);
+    }
 }

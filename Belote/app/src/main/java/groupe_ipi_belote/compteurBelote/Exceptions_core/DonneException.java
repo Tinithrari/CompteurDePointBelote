@@ -5,8 +5,12 @@ package groupe_ipi_belote.compteurBelote.Exceptions_core;
  */
 public class DonneException extends CardException {
 
-    public DonneException(int errCode) throws Exception{
-        super(errCode);
+    public DonneException(int errCode) throws Exception {
+        this(errCode, null);
+    }
+
+    public DonneException(int errCode, Exception e) {
+        super(errCode, e);
 
         switch(errCode){
             case 0xAC00:

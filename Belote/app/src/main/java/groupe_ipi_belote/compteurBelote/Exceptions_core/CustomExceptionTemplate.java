@@ -8,9 +8,13 @@ public abstract class CustomExceptionTemplate extends Exception{
     protected String message;
     protected int errCode;
 
-    public CustomExceptionTemplate(int errCode){
-        super();
+    public CustomExceptionTemplate(int errCode, Exception e){
+        super(e);
         this.errCode = errCode;
+    }
+
+    public CustomExceptionTemplate(int errCode){
+        this(errCode, null);
     }
 
     public String getMessage(){

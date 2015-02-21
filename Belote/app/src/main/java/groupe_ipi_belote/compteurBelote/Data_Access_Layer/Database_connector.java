@@ -10,7 +10,7 @@ import groupe_ipi_belote.compteurBelote.Exceptions_core.DatabaseConnectionError;
  */
 public class Database_connector {
     private static Connection DB_Connector = null;
-    public static final int DB_Timeout = 1500;
+    public static final int DB_Timeout = 3000;
 
     public Database_connector(String db) throws DatabaseConnectionError{
         connectToDatabase(db);
@@ -30,9 +30,11 @@ public class Database_connector {
             }
 
         } catch (ClassNotFoundException e) {
-
+            throw new DatabaseConnectionError(0xEEFF, e);
         }catch(DatabaseConnectionError dbce){
             throw dbce;
+        } catch(Exception e){
+            throw new DatabaseConnectionError(0xEEFF, e);
         }
     }
 
@@ -44,9 +46,9 @@ public class Database_connector {
                 throw new DatabaseConnectionError(0xEE01);
             }
         } catch(DatabaseConnectionError dbce){
-
+            throw dbce;
         } catch(Exception e){
-
+            throw new DatabaseConnectionError(0xEEFF, e);
         }
     }
 

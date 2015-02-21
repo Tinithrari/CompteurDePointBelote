@@ -5,8 +5,8 @@ package groupe_ipi_belote.compteurBelote.Exceptions_core;
  */
 public class BERException extends CustomExceptionTemplate{
 
-    public BERException(int code) throws Exception{
-        super(code);
+    public BERException(int code, Exception err){
+        super(code, err);
 
         switch(code){
             case 0xCC00:
@@ -18,5 +18,7 @@ public class BERException extends CustomExceptionTemplate{
         }
 
     }
+
+    public BERException(int code) { this(code,null); }
 
 }

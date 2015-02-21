@@ -5,7 +5,7 @@ package groupe_ipi_belote.compteurBelote.Exceptions_core;
  */
 public class CardCstException extends CustomExceptionTemplate{
 
-    public CardCstException() throws Exception{
+    public CardCstException() {
         super(0xAD01);
         message = ("Il est impossible de donner une valeur nulle aux cartes !");
     }
