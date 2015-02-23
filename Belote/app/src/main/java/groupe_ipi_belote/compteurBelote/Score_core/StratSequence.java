@@ -7,6 +7,7 @@ package groupe_ipi_belote.compteurBelote.Score_core;
 import groupe_ipi_belote.compteurBelote.Components_core.Cards;
 import groupe_ipi_belote.compteurBelote.Components_core.Equipe;
 import groupe_ipi_belote.compteurBelote.Exceptions_core.AnnounceException;
+import groupe_ipi_belote.compteurBelote.Exceptions_core.CustomExceptionTemplate;
 
 public abstract class StratSequence extends StratAnnonce{
     private Cards[] card;
@@ -15,7 +16,7 @@ public abstract class StratSequence extends StratAnnonce{
      * @param benef Equipe bénéficiaire
      * @param compo Les cartes qui composent l'annonce
      */
-    public StratSequence(Equipe benef, Cards[] compo){
+    public StratSequence(Equipe benef, Cards[] compo) throws CustomExceptionTemplate{
         super(benef);
         try {
             if (compo == null || compo.length == 0) {
@@ -24,9 +25,9 @@ public abstract class StratSequence extends StratAnnonce{
                 card = compo;
             }
         } catch(AnnounceException ae){
-
+            throw ae;
         } catch (Exception e){
-
+            throw new AnnounceException(0xFFFF,e);
         }
     }
 

@@ -4,6 +4,7 @@ import groupe_ipi_belote.compteurBelote.Components_core.Cards;
 import groupe_ipi_belote.compteurBelote.Components_core.Color;
 import groupe_ipi_belote.compteurBelote.Components_core.Equipe;
 import groupe_ipi_belote.compteurBelote.Components_core.Value;
+import groupe_ipi_belote.compteurBelote.Exceptions_core.CustomExceptionTemplate;
 import groupe_ipi_belote.compteurBelote.Exceptions_core.PliCstException;
 
 
@@ -19,7 +20,7 @@ public class Pli {
      * @param win  Equipe qui remporte le pli
      * @param card La carte dans le pli
      */
-    public Pli(Equipe win, Cards card){
+    public Pli(Equipe win, Cards card) throws CustomExceptionTemplate{
         try {
             if (win == null || card == null || card.getValue() == Value.UNDEFINED || card.getFace() == Color.UNDEFINED) {
                 throw new PliCstException(win == null ? 0xAB00 : 0xAB01);
@@ -28,9 +29,9 @@ public class Pli {
                 wCard = card;
             }
         } catch(PliCstException pce){
-
+            throw pce;
         } catch (Exception e){
-
+            throw new PliCstException(0xFFFF, e);
         }
     }
 

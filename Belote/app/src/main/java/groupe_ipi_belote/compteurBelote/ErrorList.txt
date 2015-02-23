@@ -43,3 +43,7 @@ DatabaseConnectionError / QueryExceptionError : [ 0xEE00, 0xEEFF ]
     • 0xEE0B : Erreur de relation avec la DB
     • 0xEE0C : Requete impossible
     • 0xEEFF : Erreur inconnue
+
+
+Common point :
+    • 0x--FF : Erreur inconnue / Valeur invalide (Exception sys.)

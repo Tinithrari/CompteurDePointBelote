@@ -1,5 +1,6 @@
 package groupe_ipi_belote.compteurBelote.Components_core;
 
+import groupe_ipi_belote.compteurBelote.Exceptions_core.CustomExceptionTemplate;
 import groupe_ipi_belote.compteurBelote.Exceptions_core.GameTeamException;
 
 /**
@@ -27,7 +28,7 @@ public class Equipe implements Comparable<Equipe>{
      * @param nom1 Nom du joueur 1
      * @param nom2 Nom du joueur 2
      */
-    public Equipe( String nom, String nom1, String nom2) throws GameTeamException {
+    public Equipe( String nom, String nom1, String nom2) throws CustomExceptionTemplate {
         this(nom, new Joueur(nom1), new Joueur(nom2));
     }
 

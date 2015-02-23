@@ -3,6 +3,7 @@ package groupe_ipi_belote.compteurBelote.Game_core;
 import java.util.ArrayList;
 
 import groupe_ipi_belote.compteurBelote.Components_core.Equipe;
+import groupe_ipi_belote.compteurBelote.Exceptions_core.CustomExceptionTemplate;
 import groupe_ipi_belote.compteurBelote.Exceptions_core.DonneException;
 import groupe_ipi_belote.compteurBelote.Exceptions_core.GameTeamException;
 
@@ -23,7 +24,7 @@ public class Partie {
      * @param e1  Equipe 1
      * @param e2  Equipe 2
      */
-    public Partie(String nom, Equipe e1, Equipe e2){
+    public Partie(String nom, Equipe e1, Equipe e2) throws GameTeamException {
         try {
             if (nom == null || nom.equals(" ") || nom.equals("")) {
                  throw new GameTeamException(0xAA02);
@@ -38,9 +39,9 @@ public class Partie {
             }
 
         } catch(GameTeamException gte){
-            // Communication en amont
+            throw gte;
         } catch(Exception e){
-
+            throw new GameTeamException(0xFFFF, e);
         } finally{
             this.score_equipes[0] = this.score_equipes[1] = 0;
         }
@@ -58,7 +59,8 @@ public class Partie {
      *
      * @param equipe Ajout de points à l'équipe désignée
      */
-    public void ajouterPoint(Equipe equipe) {
+    public void ajouterPoint(Equipe equipe) throws CustomExceptionTemplate{
+
         int pos = -1;
 
         try{
@@ -80,30 +82,33 @@ public class Partie {
             }
 
         } catch(DonneException de){
-
+            throw de;
         } catch(GameTeamException gte){
-
+            throw gte;
         } catch(Exception e){
-
+            throw new GameTeamException(0xFFFF, e);
         }
 
         if(pos == -1) return; // Pour eviter que l'interpreteur ne s'emballe a rien.
-        
-        boolean teamFound = false;
-        int index = donnes.size()-1;
 
-        search_team_label :
-        while(!teamFound && index >= 0){
-             if(donnes.get(index).getEquipe().equals(equipes[pos])){
+        try {
+            boolean teamFound = false;
+            int index = donnes.size() - 1;
 
-                score_equipes[pos] += donnes.get(index).totalScore();
-                teamFound = true;
+            search_team_label:
+            while (!teamFound && index >= 0) {
+                if (donnes.get(index).getEquipe().equals(equipes[pos])) {
 
-                break search_team_label;
-             }
-            index--;
+                    score_equipes[pos] += donnes.get(index).totalScore();
+                    teamFound = true;
+
+                    break search_team_label;
+                }
+                index--;
+            }
+        } catch(Exception e){
+            throw new GameTeamException(0xFFFF, e);
         }
-
 
 
     }

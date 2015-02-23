@@ -41,7 +41,7 @@ public class GameTeamException extends CustomExceptionTemplate{
                 message = "Des donnees sont invalide.";
                 break;
             case 0xFFFF:
-                message = "An unknown error occured";
+                message = "Une erreur non identifiee s'est produite.";
                 break;
         }
     }
