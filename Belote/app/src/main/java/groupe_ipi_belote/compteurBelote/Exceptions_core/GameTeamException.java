@@ -11,7 +11,10 @@ public class GameTeamException extends CustomExceptionTemplate{
      * @throws Exception
      */
     public GameTeamException(int value) throws Exception{
-        super(value);
+        this(value, null);
+    }
+    public GameTeamException(int value, Exception e) {
+        super(value, e);
 
         switch(value){
             case 0xAA00 :
@@ -33,6 +36,12 @@ public class GameTeamException extends CustomExceptionTemplate{
                 break;
             case 0xAA06:
                 message = "Le nom d'une des deux équipes est invalide.";
+                break;
+            case 0xAA0F:
+                message = "Des donnees sont invalide.";
+                break;
+            case 0xFFFF:
+                message = "Une erreur non identifiee s'est produite.";
                 break;
         }
     }

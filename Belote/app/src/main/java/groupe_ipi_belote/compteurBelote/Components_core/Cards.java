@@ -13,7 +13,7 @@ public class Cards implements Comparable {
      * @param c Couleur de la carte
      * @param v Valeur / Face de la carte
      */
-    public Cards(Color c, Value v) {
+    public Cards(Color c, Value v) throws CardCstException {
         if(c == null) color = Color.UNDEFINED; else color = c;
         if(v == null) value = Value.UNDEFINED; else value = v;
 
@@ -24,9 +24,9 @@ public class Cards implements Comparable {
                 throw new CardCstException();
             }
         } catch( CardCstException cce){
-            // Sera utilise a des fins de communications
+            throw cce;
         } catch( Exception e){
-
+            throw new CardCstException(0xFFFF,e);
         }
     }
 
@@ -34,7 +34,7 @@ public class Cards implements Comparable {
      *
      * @param carte Constructeur de copie.
      */
-    public Cards(Cards carte) {
+    public Cards(Cards carte) throws CardCstException {
         this(carte.getFace(), carte.getValue());
     }
 

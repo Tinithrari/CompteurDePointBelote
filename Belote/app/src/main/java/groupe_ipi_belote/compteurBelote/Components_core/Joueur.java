@@ -14,7 +14,7 @@ public class Joueur {
     /**
      * @param nom : Le nom du joueur
      */
-    public Joueur(String nom){
+    public Joueur(String nom) throws CustomExceptionTemplate {
         try {
             if (nom == null || nom.equals("")) {
                 throw new GameTeamException(0xAA04);
@@ -22,9 +22,9 @@ public class Joueur {
                 this.name = nom;
             }
         } catch(CustomExceptionTemplate cet){
-
+            throw cet;
         } catch (Exception e){
-
+            throw new GameTeamException(0xFFFF, e);
         }
 
         hand = new Main(this);

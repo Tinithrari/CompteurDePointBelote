@@ -6,6 +6,7 @@ package groupe_ipi_belote.compteurBelote.Score_core;
 
 import groupe_ipi_belote.compteurBelote.Components_core.Equipe;
 import groupe_ipi_belote.compteurBelote.Exceptions_core.AnnounceException;
+import groupe_ipi_belote.compteurBelote.Exceptions_core.CustomExceptionTemplate;
 
 public abstract class StratAnnonce {
     private Equipe benef;
@@ -15,7 +16,7 @@ public abstract class StratAnnonce {
      *
      * @param beneficiaire Equipe qui bénéficie de la donne
      */
-    public StratAnnonce(Equipe beneficiaire){
+    public StratAnnonce(Equipe beneficiaire)throws CustomExceptionTemplate{
         try {
             if (beneficiaire == null) {
                 throw new AnnounceException(0xAAA1);
@@ -23,9 +24,9 @@ public abstract class StratAnnonce {
                 benef = beneficiaire;
             }
         } catch(AnnounceException ae){
-
+            throw ae;
         } catch(Exception e){
-
+            throw new AnnounceException(0xFFFF, e);
         }
     }
 

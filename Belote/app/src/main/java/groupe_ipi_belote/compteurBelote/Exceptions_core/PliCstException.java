@@ -6,7 +6,11 @@ package groupe_ipi_belote.compteurBelote.Exceptions_core;
 public class PliCstException extends CustomExceptionTemplate{
 
     public PliCstException(int errCode) throws Exception{
-        super(errCode);
+        this(errCode, null);
+    }
+
+    public PliCstException(int errCode, Exception e) {
+        super(errCode, e);
 
         switch(errCode) {
             case 0xAB00:

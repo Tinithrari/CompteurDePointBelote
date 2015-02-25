@@ -3,6 +3,7 @@ package groupe_ipi_belote.compteurBelote.Score_core;
 import groupe_ipi_belote.compteurBelote.Components_core.Color;
 import groupe_ipi_belote.compteurBelote.Components_core.Equipe;
 import groupe_ipi_belote.compteurBelote.Exceptions_core.BERException;
+import groupe_ipi_belote.compteurBelote.Exceptions_core.CustomExceptionTemplate;
 
 /**
  * Created by Axel on 27/01/2015.
@@ -17,7 +18,7 @@ public class BeloteEtRebelote extends StratAnnonce{
      * @param eqp L'équipe qui annonce
      * @param clr L'atout
      */
-    public BeloteEtRebelote(Equipe eqp, Color clr) {
+    public BeloteEtRebelote(Equipe eqp, Color clr) throws CustomExceptionTemplate{
         super(eqp);
 
         try {
@@ -28,9 +29,9 @@ public class BeloteEtRebelote extends StratAnnonce{
                 team = eqp;
             }
         } catch(BERException br){
-
+            throw br;
         } catch(Exception e){
-
+            throw new BERException(0xFFFF, e);
         }
 
     }

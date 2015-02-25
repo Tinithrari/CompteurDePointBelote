@@ -5,11 +5,13 @@ package groupe_ipi_belote.compteurBelote.Exceptions_core;
  */
 public class CardException extends CustomExceptionTemplate{
 
-    public CardException(int code) throws Exception{
-        // super(0xAD00);
-        super(code);
+    public CardException(int code, Exception e) {
+        super(code, e);
         message = "Une des valeur spécifiée est invalide.";
     }
 
+    public CardException(int code) throws Exception{
+        this(code,null);
+    }
 }
 

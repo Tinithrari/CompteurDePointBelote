@@ -24,7 +24,7 @@ public class Main {
      *
      * @param o Propriétaire de la main.
      */
-    public Main(Joueur o){
+    public Main(Joueur o) throws CustomExceptionTemplate {
         try {
             if (o == null) {
                 throw new GameTeamException(0xAA04);
@@ -32,9 +32,9 @@ public class Main {
                 owner = o;
             }
         } catch(CustomExceptionTemplate cet){
-
+            throw cet;
         } catch(Exception e){
-
+            throw new GameTeamException(0xFFFF, e);
         }
     }
 
@@ -42,17 +42,21 @@ public class Main {
      *
      * @param carte Ajoute la carte concernée à la main du joueur
      */
-    public void ajouterCarte(Cards carte){
-        if(card.size() != 4) {
-            card.add(new Cards(carte));
-        }
-
-        // Tri 'adaptatif'
-        Collections.sort(card, new Comparator<Cards>() {
-            public int compare(Cards c1, Cards c2) {
-                return c1.compareTo(c2);
+    public void ajouterCarte(Cards carte) throws CustomExceptionTemplate{
+        try {
+            if (card.size() != 4) {
+                card.add(new Cards(carte));
             }
-        });
+
+            // Tri 'adaptatif'
+            Collections.sort(card, new Comparator<Cards>() {
+                public int compare(Cards c1, Cards c2) {
+                    return c1.compareTo(c2);
+                }
+            });
+        } catch(Exception e){
+            throw new GameTeamException(0xFFFF, e);
+        }
     }
 
     /**
@@ -60,7 +64,7 @@ public class Main {
      * @param c La couleur de la carte
      * @param v La valeur de la carte
      */
-    public void ajouterCarte(Color c, Value v){
+    public void ajouterCarte(Color c, Value v) throws CustomExceptionTemplate {
         if(c != null || v != null)
             ajouterCarte(new Cards(c,v));
     }
