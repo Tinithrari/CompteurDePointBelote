@@ -10,6 +10,9 @@ import groupe_ipi_belote.compteurBelote.Exceptions_core.CustomExceptionTemplate;
 
 public abstract class StratAnnonce {
     private Equipe benef;
+
+
+
     public abstract int annonce();
 
     /**

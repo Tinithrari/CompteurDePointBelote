@@ -2,6 +2,9 @@ package groupe_ipi_belote.compteurBelote;
 
 import junit.framework.TestCase;
 import groupe_ipi_belote.compteurBelote.Components_core.*;
+import groupe_ipi_belote.compteurBelote.Exceptions_core.CardCstException;
+import groupe_ipi_belote.compteurBelote.Exceptions_core.CustomExceptionTemplate;
+import groupe_ipi_belote.compteurBelote.Exceptions_core.GameTeamException;
 
 /**
  * Created by Axel on 02/.02/2015.
@@ -25,10 +28,15 @@ public class TestComponents extends TestCase {
             System.err.print(e.getCause() + " - " + e.getMessage());
         }
 
-        cd = new Cards(Color.CARREAU, Value.VALET);
+        try {
+            cd = new Cards(Color.CARREAU, Value.VALET);
+            assertNotNull(cd.getFace());
+            assertNotNull(cd.getValue());
+        } catch (CardCstException e) {
+            e.printStackTrace();
+        }
 
-        assertNotNull(cd.getFace());
-        assertNotNull(cd.getValue());
+
     }
 
     //complete by Delory Maxence
@@ -46,24 +54,32 @@ public class TestComponents extends TestCase {
             System.err.print(e.getCause() + " - " + e.getMessage());
         }
 
-        eq = new Equipe("test",team);
-        Equipe eq2 = eq;
-        assertNotNull(eq.getNomEquipe());
+        try {
+            eq = new Equipe("test",team);
+            Equipe eq2 = eq;
+            assertNotNull(eq.getNomEquipe());
+            assertEquals(eq.compareTo(eq2),true);
+            eq =new Equipe("test2","Nom1","Nom2");
+            assertNotSame(eq,eq2);
+            assertEquals(eq.compareTo(eq2),false);
+            assertNotNull(eq.getNomEquipe());
+            eq =new Equipe("test2",team[0].getNom(),team[1].getNom());
+            assertNotNull(eq.getNomEquipe());
 
-        eq =new Equipe("test2","Nom1","Nom2");
-        assertNotSame(eq,eq2);
-        assertNotNull(eq.getNomEquipe());
-        eq =new Equipe("test2",team[0].getNom(),team[1].getNom());
-        assertNotNull(eq.getNomEquipe());
+            eq =new Equipe("test2",team[0],team[1]);
+            assertNotNull(eq.getNomEquipe());
 
-        eq =new Equipe("test2",team[0],team[1]);
-        assertNotNull(eq.getNomEquipe());
+            eq = new Equipe(eq2);
+            assertNotNull(eq.getNomEquipe());
+        } catch (GameTeamException e) {
+            e.printStackTrace();
+        } catch (CustomExceptionTemplate customExceptionTemplate) {
+            customExceptionTemplate.printStackTrace();
+        }
 
-        eq = new Equipe(eq2);
-        assertNotNull(eq.getNomEquipe());
     }
 
-    protected void testJoueur(){
+    protected void testJoueur() {
         Joueur j;
         try {
             j = new Joueur(null);
@@ -71,15 +87,30 @@ public class TestComponents extends TestCase {
             System.err.print(e.getCause() + " - " + e.getMessage());
         }
 
-        j = new Joueur("test");
+        try {
+            j = new Joueur("test");
+            Joueur j2= j ;
+            assertEquals(j.equals(j2),true);
+            j2= new Joueur("test2");
+            assertEquals(j.equals(j2),false);
+            assertNotNull(j.getNom());
+            assertNotNull(j.getMain());
+        } catch (CustomExceptionTemplate customExceptionTemplate) {
+            customExceptionTemplate.printStackTrace();
+        }
 
-        assertNotNull(j.getNom());
-        assertNotNull(j.getMain());
+
     }
 
     protected void testPaquet(){
-        Paquet p= new Paquet();
-        assertNotNull(p);
+        Paquet p= null;
+        try {
+            p = new Paquet();
+            assertNotNull(p);
+        } catch (CardCstException e) {
+            e.printStackTrace();
+        }
+
 
     }
 

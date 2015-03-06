@@ -195,7 +195,11 @@ public class Donne {
                     switch (aofc) {
 
                         case 3:
-                            annonces.add(new Tierce(contractant, followingCards.toArray(new Cards[followingCards.size()])));
+                            try {
+                                annonces.add(new Tierce(contractant, followingCards.toArray(new Cards[followingCards.size()])));
+                            } catch (CustomExceptionTemplate customExceptionTemplate) {
+                                customExceptionTemplate.printStackTrace();
+                            }
                             break;
 
                         case 4:
@@ -225,8 +229,12 @@ public class Donne {
             for (Joueur j : contractant.getPlayers()) {
                 Main m = j.getMain();
                 ArrayList<Cards> alc = m.getCards();
-                if(alc.contains(new Cards(couleur, Value.DAME)) && alc.contains(new Cards(couleur, Value.ROI))){
-                    annonces.add(new BeloteEtRebelote(contractant, couleur));
+                try {
+                    if(alc.contains(new Cards(couleur, Value.DAME)) && alc.contains(new Cards(couleur, Value.ROI))){
+                        annonces.add(new BeloteEtRebelote(contractant, couleur));
+                    }
+                } catch (CustomExceptionTemplate customExceptionTemplate) {
+                    customExceptionTemplate.printStackTrace();
                 }
             }
         }
@@ -277,7 +285,11 @@ public class Donne {
 
                 switch (aofc) {
                     case 3:
-                        annonces.add(new Tierce(contractant, followingCards.toArray(new Cards[followingCards.size()]    ) ) );
+                        try {
+                            annonces.add(new Tierce(contractant, followingCards.toArray(new Cards[followingCards.size()]    ) ) );
+                        } catch (CustomExceptionTemplate customExceptionTemplate) {
+                            customExceptionTemplate.printStackTrace();
+                        }
                         break;
 
                     case 4:
@@ -382,12 +394,16 @@ public class Donne {
      *  On ajoute une annonce nulle.
      */
     public void ajouterAnnonce(){
-        annonces.add(new StratAnnonce(contractant) {
-            @Override
-            public int annonce() {
-                return 0;
-            }
-        });
+        try {
+            annonces.add(new StratAnnonce(contractant) {
+                @Override
+                public int annonce() {
+                    return 0;
+                }
+            });
+        } catch (CustomExceptionTemplate customExceptionTemplate) {
+            customExceptionTemplate.printStackTrace();
+        }
     }
 
     /**
